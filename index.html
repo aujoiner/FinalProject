@@ -12,21 +12,55 @@
         <!-- TODO: Add link to jQuery here -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
+        <!-- TODO: Add link to jQuery here -->
+        <link rel="stylesheet" href="node_modules/bulma/css/bulma.css"/>
+
         <!-- Include links to JavaScript files below -->
         
         
     </head>
 
     <body>
-        <div id="root"></div>
 
-        <h1>Chapel Hill Restaurants</h1>
-        <div>
-            <img width=500px src="https://pbs.twimg.com/profile_images/980888442304425984/u0XKcSVA_400x400.jpg"><img>
-            <img width=500px src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRv_B1-_k28BRcdP21NCL5CnPWLVntURJBcvrQvUtPfBzm_3c8upQ&s"><img>
-            <img width=500px src="https://images.squarespace-cdn.com/content/57bf1474be65941ee0be7357/1472141575487-HSW0CNGJMSJZNM9HI53W/Sutton%27s+Logo.png?content-type=image%2Fpng"></img>
+        <section class="hero is-bold is-info is-halfheight">
+                <div class="hero-body">
+                  <div class="container">
+                    <h1 class="title">
+                      Chapel Hill Restaurants and Bars
+                    </h1>
+                    <h2 class="subtitle">
+                      eat, drink, be merry
+                    </h2>
+                  </div>
+                </div>
+        </section>
+
+        <div class="tabs is-large is-centered">
+                <ul>
+                    <li class="tab is-active" onclick="openTab(event,'home')"><a>Home</a></li>
+                    <li class="tab" onclick="openTab(event,'restaurants')"><a>Restaurants</a></li>
+                    <li class="tab" onclick="openTab(event,'bars')"><a>Bars</a></li>
+                    <li class="tab" onclick="openTab(event,'about')"><a>About</a></li>
+                </ul>
         </div>
-        <p>Images will be clickable and resized properly later.</p>
+
+        <div class="content-tab">
+            <p>To be replaced with sign-in form</p>
+        </div>
+
+        <div class="columns is-gapless has-text-centered is-vcentered justify-center">
+            <div class="column is-one-third">
+                <img src="https://pbs.twimg.com/profile_images/980888442304425984/u0XKcSVA_400x400.jpg">
+            </div>
+            <div class="column">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRv_B1-_k28BRcdP21NCL5CnPWLVntURJBcvrQvUtPfBzm_3c8upQ&s">
+            </div>
+            <div class="column">
+                <img src="https://images.squarespace-cdn.com/content/57bf1474be65941ee0be7357/1472141575487-HSW0CNGJMSJZNM9HI53W/Sutton%27s+Logo.png?content-type=image%2Fpng">
+            </div>
+        </div>
+        
+        <div id="root"></div>
         
     </body>
 </html>
