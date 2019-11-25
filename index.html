@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>Chapel Hill Restaurants</title>
+        <title>Chapel Hill R&B</title>
 
         <!-- Include links to CSS stylesheets below -->
         <link rel="stylesheet" href="style.css"/>
@@ -15,7 +15,7 @@
         <!-- TODO: Add link to jQuery here -->
         <link rel="stylesheet" href="node_modules/bulma/css/bulma.css"/>
 
-        <!-- Include links to JavaScript files below -->
+       
         
         
     </head>
@@ -33,34 +33,61 @@
                     </h2>
                   </div>
                 </div>
+                <div class="hero-foot">
+                    <div class="buttons are-large is-centered has-addons">
+                        <button class="homeButton button is-info is-light">Home</button>
+                        <button class="restaurantsButton button">Restaurants</button>
+                        <button class="barsButton button">Bars</button>
+                        <button class="aboutButton button">About</button>
+                    </div>
+                </div>
         </section>
 
-        <div class="tabs is-large is-centered">
-                <ul>
-                    <li class="tab is-active" onclick="openTab(event,'home')"><a>Home</a></li>
-                    <li class="tab" onclick="openTab(event,'restaurants')"><a>Restaurants</a></li>
-                    <li class="tab" onclick="openTab(event,'bars')"><a>Bars</a></li>
-                    <li class="tab" onclick="openTab(event,'about')"><a>About</a></li>
-                </ul>
-        </div>
+        
+        <section id="main1" class="form is-centered form-size">
+            <br>
+            <br>
+            <h1 class="form-title">Create an account!</h1>
+            <br>
+            <form class="sign-up-form">
+                <div class="field">
+                    <label class="label">Name</label>
+                    <div class="control">
+                    <input class="input" type="text" placeholder="your name here...">
+                    </div>
+                </div>
+                
+                <div class="field">
+                    <label class="label">Username</label>
+                    <div class="control">
+                    <input class="input" type="text" placeholder="your username here...">
+                    </div>
+                </div>
+                
+                <div class="field">
+                    <label class="label">Email</label>
+                    <div class="control">
+                    <input class="input" type="email" placeholder="your email here...">
+                    </div>
+                </div>
+                
+                <div class="field is-grouped">
+                    <div class="control">
+                    <button class="button is-info">Submit</button>
+                    </div>
+                    <div class="control">
+                    <button class="button is-info is-light">Cancel</button>
+                    </div>
+                </div>
+            </form>
+        </section>
 
-        <div class="content-tab">
-            <p>To be replaced with sign-in form</p>
-        </div>
-
-        <div class="columns is-gapless has-text-centered is-vcentered justify-center">
-            <div class="column is-one-third">
-                <img src="https://pbs.twimg.com/profile_images/980888442304425984/u0XKcSVA_400x400.jpg">
-            </div>
-            <div class="column">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRv_B1-_k28BRcdP21NCL5CnPWLVntURJBcvrQvUtPfBzm_3c8upQ&s">
-            </div>
-            <div class="column">
-                <img src="https://images.squarespace-cdn.com/content/57bf1474be65941ee0be7357/1472141575487-HSW0CNGJMSJZNM9HI53W/Sutton%27s+Logo.png?content-type=image%2Fpng">
-            </div>
-        </div>
+            
         
         <div id="root"></div>
+
+         <!-- Include links to JavaScript files below -->
+         <script src="render.js"></script>
         
     </body>
 </html>

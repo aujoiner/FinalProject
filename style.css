@@ -8,3 +8,16 @@ img{
     width: 500px;
     height: 500px;
 }
+.form-size{
+    width: 500px;
+    position: relative;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.form-title{
+    font-size: 50px;
+}
+.about-text{
+    font-size:25px;
+}
