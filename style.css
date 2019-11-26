@@ -9,9 +9,8 @@ img{
     height: 500px;
 }
 .form-size{
-    width: 500px;
     position: relative;
-    display: block;
+    display: inline-block;
     margin-left: auto;
     margin-right: auto;
 }
@@ -20,4 +19,18 @@ img{
 }
 .about-text{
     font-size:25px;
+}
+#sign-up-form{
+    display: inline-block;
+    width: 600px;
+    vertical-align: top;
+    padding: 50px;
+    margin:0 auto;
+}
+#log-in-form{
+    display: inline-block;
+    width:600px;
+    vertical-align: top;
+    padding: 50px;
+    margin: 0 auto;
 }

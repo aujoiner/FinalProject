@@ -8,39 +8,9 @@ function handleHomeButtonPress(event){
   let replacingHTML = `<section id="main1" class="form is-centered form-size">
           <br>
           <br>
-          <h1 class="form-title">Create an account!</h1>
-          <br>
-          <form class="sign-up-form">
-              <div class="field">
-                  <label class="label">Name</label>
-                  <div class="control">
-                  <input class="input" type="text" placeholder="your name here...">
-                  </div>
-              </div>
-              
-              <div class="field">
-                  <label class="label">Username</label>
-                  <div class="control">
-                  <input class="input" type="text" placeholder="your username here...">
-                  </div>
-              </div>
-              
-              <div class="field">
-                  <label class="label">Email</label>
-                  <div class="control">
-                  <input class="input" type="email" placeholder="your email here...">
-                  </div>
-              </div>
-              
-              <div class="field is-grouped">
-                  <div class="control">
-                  <button class="button is-info">Submit</button>
-                  </div>
-                  <div class="control">
-                  <button class="button is-info is-light">Cancel</button>
-                  </div>
-              </div>
-          </form>
+          ${renderSignupForm()}
+          ${renderLoginForm()}
+
         </section>`;
 
         let tmpObj=document.createElement("div"); // created an empty 'div'
@@ -125,6 +95,82 @@ function handleAboutButtonPress(event){
         $("button").removeClass("is-light");
         $(".aboutButton").addClass("is-info");
         $(".aboutButton").addClass("is-light");
-        
 
+}
+
+function renderLoginForm(){
+    return `<div id="log-in-form">
+            <h1 class="form-title">Log in!</h1>
+            <br>
+            <form class="log-in-form">
+                
+                <div class="field">
+                    <label class="label">Username</label>
+                    <div class="control">
+                    <input class="input" type="text" placeholder="your username here...">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Password</label>
+                    <div class="control">
+                    <input class="input" type="text" placeholder="password...">
+                    </div>
+                </div>
+                
+                <div class="field is-grouped">
+                    <div class="control">
+                    <button class="button is-info">Login</button>
+                    </div>
+                    <div class="control">
+                    <button class="button is-info is-light">Cancel</button>
+                    </div>
+                </div>
+            </form>
+        </div>`
+}
+
+function renderSignupForm(){
+    return `<div id="sign-up-form">
+            <h1 class="form-title">Create an account!</h1>
+            <br>
+            <form class="sign-up-form">
+                <div class="field">
+                    <label class="label">Name</label>
+                    <div class="control">
+                    <input class="input" type="text" placeholder="your name here...">
+                    </div>
+                </div>
+                
+                <div class="field">
+                    <label class="label">Username</label>
+                    <div class="control">
+                    <input class="input" type="text" placeholder="your username here...">
+                    </div>
+                </div>
+                
+                <div class="field">
+                    <label class="label">Email</label>
+                    <div class="control">
+                    <input class="input" type="email" placeholder="your email here...">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Password</label>
+                    <div class="control">
+                    <input class="input" type="text" placeholder="your username here...">
+                    </div>
+                </div>
+                
+                <div class="field is-grouped">
+                    <div class="control">
+                    <button class="button is-info">Submit</button>
+                    </div>
+                    <div class="control">
+                    <button class="button is-info is-light">Cancel</button>
+                    </div>
+                </div>
+            </form>
+          </div>`
 }
