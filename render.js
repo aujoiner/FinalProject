@@ -178,7 +178,7 @@ function renderSignupForm(){
 
 //until we get the server set up, this is an example restaurant object
 let coolRestaurant = {
-    name: "Top of the Hill",
+    name: "TOP OF THE HILL",
     address: "100 Franklin Street, Chapel Hill, NC 27516",
     description: "American cuisine with great views of Franklin Street. Food is way too expensive for what it is.",
     image: "https://pbs.twimg.com/profile_images/980888442304425984/u0XKcSVA_400x400.jpg"
@@ -186,18 +186,31 @@ let coolRestaurant = {
 
 function renderPlacePage(place){
     let placeHTML = `
+    <center>
         <div id="main1">
-            <h1>
-                ${place.name}
-            </h1>
-            <h3>
-                ${place.address}
-            </h3>
-            <img class="page" src="${place.image}"></img>
-            <p>
-                ${place.description}
-            </p>
-        </div>`;
+        <br><br>
+        <div class="page is-centered form-size">
+            <div class="page">
+                <img class="page" src="${place.image}"></img>
+            </div>
+            <div class="page">
+                <h1 class="name">
+                    ${place.name}
+                </h1>
+                <h3 class="address">
+                    ${place.address}
+                </h3>
+                <br>
+                <br>
+                <p class="description">
+                    ${place.description}
+                </p>
+            </div>
+        </div>
+        <br>
+        <br>
+        </div>
+    </center>`;
 
     return placeHTML;
 }

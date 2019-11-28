@@ -38,6 +38,27 @@ img{
     margin: 0 auto;
 }
 img.page{
-    width:300px;
-    height:300px;
+    width:500px;
+    height:500px;
+}
+div.page{
+    display:inline-block;
+    vertical-align: top;
+    padding:25px;
+}
+label{
+    text-align: left;
+}
+.name{
+    font-size: 80px;
+    vertical-align: top;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.address{
+    font-size: 20px;
+    vertical-align: top;
+}
+.description{
+    font-size: 25px;
+    vertical-align: top;
 }
