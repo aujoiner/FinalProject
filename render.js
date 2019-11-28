@@ -27,7 +27,6 @@ function handleHomeButtonPress(event){
         $(".homeButton").addClass("is-info");
         $(".homeButton").addClass("is-light");
 
-        
 }
 
 //switch to restaurants tab
@@ -230,4 +229,18 @@ function handlePlaceButtonPress(){
     tmpObj.innerHTML=renderPlacePage(coolRestaurant); // replaced with whatever edit form html you had
 
     $(document.getElementById("main1")).replaceWith(tmpObj);
+}
+
+async function signUp(username,password,email){
+    const result = await axios({
+        method: 'post',
+        url: 'http://localhost:3000/account/create',
+        withCredentials: true,
+        name: username,
+        pass: password,
+        data:{
+            email: email
+        }
+    });
+    return result.data;
 }
