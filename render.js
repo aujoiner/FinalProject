@@ -1,8 +1,10 @@
+//turn the buttons on when the page loads
 $(".homeButton").on("click",handleHomeButtonPress);
 $(".restaurantsButton").on("click",handleRestaurantsButtonPress);
 $(".barsButton").on("click",handleBarsButtonPress);
 $(".aboutButton").on("click",handleAboutButtonPress);
 
+//switch to home tab
 function handleHomeButtonPress(event){
   
   let replacingHTML = `<section id="main1" class="form is-centered form-size">
@@ -20,14 +22,15 @@ function handleHomeButtonPress(event){
         $(".homeButton").on("click",handleHomeButtonPress);
 
         //this sets the tab color so you know you're on that page
-        $("button").removeClass("is-info");
-        $("button").removeClass("is-light");
+        $("button.tab").removeClass("is-info");
+        $("button.tab").removeClass("is-light");
         $(".homeButton").addClass("is-info");
         $(".homeButton").addClass("is-light");
 
         
 }
 
+//switch to restaurants tab
 function handleRestaurantsButtonPress(event){
     let replacingHTML = `<div id="main1" class="columns is-gapless has-text-centered is-vcentered justify-center">
     <div class="column is-one-third">
@@ -56,6 +59,7 @@ function handleRestaurantsButtonPress(event){
 
 }
 
+//switch to bars tab
 function handleBarsButtonPress(event){
   let replacingHTML = `<div id="main1" class="columns is-gapless has-text-centered is-vcentered justify-center">
   <div class="column is-one-third">
@@ -77,6 +81,7 @@ function handleBarsButtonPress(event){
 
 }
 
+//switch to about tab
 function handleAboutButtonPress(event){
   
   let replacingHTML = `<div id="main1">
@@ -99,6 +104,7 @@ function handleAboutButtonPress(event){
 
 }
 
+//renders the login form that pops up on the home tab
 function renderLoginForm(){
     return `<div id="log-in-form">
             <h1 class="form-title">Log in!</h1>
@@ -131,6 +137,7 @@ function renderLoginForm(){
         </div>`
 }
 
+//renders the sign-up form that pops up on the home tab
 function renderSignupForm(){
     return `<div id="sign-up-form">
             <h1 class="form-title">Create an account!</h1>
@@ -184,6 +191,7 @@ let coolRestaurant = {
     image: "https://pbs.twimg.com/profile_images/980888442304425984/u0XKcSVA_400x400.jpg"
 }
 
+//renders the individual page for a clicked on restaurant
 function renderPlacePage(place){
     let placeHTML = `
     <center>
@@ -215,6 +223,7 @@ function renderPlacePage(place){
     return placeHTML;
 }
 
+//handles button push for a restaurant/bar image
 function handlePlaceButtonPress(){
 
     let tmpObj=document.createElement("div"); // created an empty 'div'
