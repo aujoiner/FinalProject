@@ -31,7 +31,8 @@ function handleHomeButtonPress(event){
 function handleRestaurantsButtonPress(event){
     let replacingHTML = `<div id="main1" class="columns is-gapless has-text-centered is-vcentered justify-center">
     <div class="column is-one-third">
-        <img src="https://pbs.twimg.com/profile_images/980888442304425984/u0XKcSVA_400x400.jpg">
+        <input type="image" onClick="handlePlaceButtonPress()" src="https://pbs.twimg.com/profile_images/980888442304425984/u0XKcSVA_400x400.jpg">
+        </input>
     </div>
     <div class="column">
         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRv_B1-_k28BRcdP21NCL5CnPWLVntURJBcvrQvUtPfBzm_3c8upQ&s">
@@ -173,4 +174,38 @@ function renderSignupForm(){
                 </div>
             </form>
           </div>`
+}
+
+//until we get the server set up, this is an example restaurant object
+let coolRestaurant = {
+    name: "Top of the Hill",
+    address: "100 Franklin Street, Chapel Hill, NC 27516",
+    description: "American cuisine with great views of Franklin Street. Food is way too expensive for what it is.",
+    image: "https://pbs.twimg.com/profile_images/980888442304425984/u0XKcSVA_400x400.jpg"
+}
+
+function renderPlacePage(place){
+    let placeHTML = `
+        <div id="main1">
+            <h1>
+                ${place.name}
+            </h1>
+            <h3>
+                ${place.address}
+            </h3>
+            <img class="page" src="${place.image}"></img>
+            <p>
+                ${place.description}
+            </p>
+        </div>`;
+
+    return placeHTML;
+}
+
+function handlePlaceButtonPress(){
+
+    let tmpObj=document.createElement("div"); // created an empty 'div'
+    tmpObj.innerHTML=renderPlacePage(coolRestaurant); // replaced with whatever edit form html you had
+
+    $(document.getElementById("main1")).replaceWith(tmpObj);
 }

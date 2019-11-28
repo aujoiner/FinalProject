@@ -1,6 +1,9 @@
 h1.title{
     font-size: 75px;
 }
+h1{
+    font-size:100px;
+}
 h2.subtitle{
     font-size: 25px;
 }
@@ -33,4 +36,8 @@ img{
     vertical-align: top;
     padding: 50px;
     margin: 0 auto;
+}
+img.page{
+    width:300px;
+    height:300px;
 }
