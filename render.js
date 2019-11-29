@@ -142,37 +142,31 @@ function renderSignupForm(){
             <h1 class="form-title">Create an account!</h1>
             <br>
             <form class="sign-up-form">
-                <div class="field">
-                    <label class="label">Name</label>
-                    <div class="control">
-                    <input class="input" type="text" placeholder="your name here...">
-                    </div>
-                </div>
                 
                 <div class="field">
                     <label class="label">Username</label>
                     <div class="control">
-                    <input class="input" type="text" placeholder="your username here...">
-                    </div>
-                </div>
-                
-                <div class="field">
-                    <label class="label">Email</label>
-                    <div class="control">
-                    <input class="input" type="email" placeholder="your email here...">
+                    <input class="input" type="text" name="usernameS">
                     </div>
                 </div>
 
                 <div class="field">
                     <label class="label">Password</label>
                     <div class="control">
-                    <input class="input" type="text" placeholder="your username here...">
+                    <input class="input" type="text" name="passwordS">
+                    </div>
+                </div>
+                
+                <div class="field">
+                    <label class="label">Email</label>
+                    <div class="control">
+                    <input class="input" type="email" name="emailS">
                     </div>
                 </div>
                 
                 <div class="field is-grouped">
                     <div class="control">
-                    <button class="button is-info">Submit</button>
+                    <button class="button submitSignupButton is-info" onclick="handleSubmitSignupButtonPress()">Submit</button>
                     </div>
                     <div class="control">
                     <button class="button is-info is-light">Cancel</button>
@@ -231,10 +225,25 @@ function handlePlaceButtonPress(){
     $(document.getElementById("main1")).replaceWith(tmpObj);
 }
 
-function handleSubmitSignupButtonPress(){
-    alert("hey");
-    //let editedTweet = $('textarea[value="edit"]').val();
-    //let tweetID = $(event.currentTarget).attr("value");
+function handleSubmitSignupButtonPress(event){
+    
+    let password = $('input[name="passwordS"]').val();
+    let username = $('input[name="usernameS"]').val();
+    let email = $('input[name="emailS"]').val();
+    
+    signUp(username,password,email).then(function(){
+
+        let html = `<div id="main1">
+                <h1>Account successfully created! I hope.</h1>
+            </div>`;
+
+        let tmpObj=document.createElement("div"); // created an empty 'div'
+        tmpObj.innerHTML=html; // replaced with whatever edit form html you had
+        $(document.getElementById("main1")).replaceWith(tmpObj);
+    }).catch(function(){
+        alert("Sign-up failed :(");
+    });
+
     
 }
 
