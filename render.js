@@ -231,6 +231,13 @@ function handlePlaceButtonPress(){
     $(document.getElementById("main1")).replaceWith(tmpObj);
 }
 
+function handleSubmitSignupButtonPress(){
+    alert("hey");
+    //let editedTweet = $('textarea[value="edit"]').val();
+    //let tweetID = $(event.currentTarget).attr("value");
+    
+}
+
 async function signUp(username,password,email){
     const result = await axios({
         method: 'post',
@@ -243,4 +250,15 @@ async function signUp(username,password,email){
         }
     });
     return result.data;
+}
+
+async function login(username,password){
+    const result = await axios({
+        method: 'post',
+        url: 'http://localhost:3000/account/login',
+        withCredentials: true,
+        name: username,
+        pass: password,
+    });
+    return result.jwt;
 }
