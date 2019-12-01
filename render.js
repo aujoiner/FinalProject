@@ -226,39 +226,46 @@ function handlePlaceButtonPress(){
 }
 
 function handleSubmitSignupButtonPress(event){
+
     
     let password = $('input[name="passwordS"]').val();
     let username = $('input[name="usernameS"]').val();
     let email = $('input[name="emailS"]').val();
+
     
     signUp(username,password,email).then(function(){
 
-        let html = `<div id="main1">
-                <h1>Account successfully created! I hope.</h1>
+        alert("promise fulfilled");
+
+        let html = 
+            `<div id="main1">
+                <h1>Account for ${username} successfully created!</h1>
             </div>`;
 
         let tmpObj=document.createElement("div"); // created an empty 'div'
-        tmpObj.innerHTML=html; // replaced with whatever edit form html you had
-        $(document.getElementById("main1")).replaceWith(tmpObj);
-    }).catch(function(){
-        alert("Sign-up failed :(");
-    });
+        tmpObj.innerHTML=html; // replaced with whatever html you had
 
-    
+        $(document.getElementById("main1")).replaceWith(tmpObj);
+        alert("end of success");
+
+    }).catch(error => alert(error));
+
 }
 
 async function signUp(username,password,email){
+
     const result = await axios({
         method: 'post',
         url: 'http://localhost:3000/account/create',
-        withCredentials: true,
-        name: username,
-        pass: password,
         data:{
-            email: email
+            "name": username,
+            "pass": password,
+            "data":{
+                "email": email
+            }
         }
     });
-    return result.data;
+    return result;
 }
 
 async function login(username,password){
