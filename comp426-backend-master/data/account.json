@@ -1,2 +1,16 @@
 {
+  "users": {
+    "evan": {
+      "passwordHash": "$2b$10$mqw5kJN8UmbI5nFHpKgk4u/a88Wy78ChM7IwnZXHyYpFjX.qTeyS2",
+      "data": {
+        "email": "evanfalcinelli1@gmail.com"
+      }
+    },
+    "austin": {
+      "passwordHash": "$2b$10$a8iJXYFT/kzk4LFQg/qfkeSrABz32I762iUwCr0sf635ztds7RmFW",
+      "data": {
+        "email": "sintim"
+      }
+    }
+  }
 }
