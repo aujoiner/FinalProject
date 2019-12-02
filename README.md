@@ -1,6 +1,6 @@
 # FinalProject
 
-Okay well my local git references got corrupted somehow and I had to go through and edit the files through github directly to update my work so hopefully everything is correct.
+Okay well my local git references got corrupted somehow and I had to go through and edit the files through github directly to update my work so hopefully everything is correct. (Update: fixed them!)
 
 The "main1" ID: I have an id called "main1" which I have been using to grab and replace web content when the tabs and other buttons are pushed. It should replace everything under the hero.
 
