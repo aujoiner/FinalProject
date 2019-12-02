@@ -10,4 +10,4 @@ Restaurants: This tab will change the content below the hero to be a list of ima
 
 Bars: Same thing as Restaurants, but with bars.
 
-About: I wanted a fourth tab so it's just a simple about page.
+About: I just wanted a fourth tab so it's a simple about page.
