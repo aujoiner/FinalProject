@@ -11,6 +11,24 @@
       "data": {
         "email": "sintim"
       }
+    },
+    "test123": {
+      "passwordHash": "$2b$10$G2zPsRlRlwmoVRcGkaYJiecmmCwlRp2C5twC5R9XVd1Ai5YPv26LW",
+      "data": {
+        "email": "test123@gmail.com"
+      }
+    },
+    "test4": {
+      "passwordHash": "$2b$10$vSWCPIYI0Dkt8z6zvDm7ee8zQiWgo/4IArzpOsCEtbhDb1l0hklVa",
+      "data": {
+        "email": "test4@gmail.com"
+      }
+    },
+    "pleasework": {
+      "passwordHash": "$2b$10$s/XQwSliYmGwSfbOMRNeS.r8u6VyEGJ95HRvDsSLTCkPToQIZqoTa",
+      "data": {
+        "email": "severus@gmail.com"
+      }
     }
   }
 }

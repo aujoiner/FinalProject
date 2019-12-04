@@ -226,11 +226,15 @@ function handlePlaceButtonPress(){
 }
 
 function handleSubmitSignupButtonPress(event){
-
     
+   
     let password = $('input[name="passwordS"]').val();
     let username = $('input[name="usernameS"]').val();
     let email = $('input[name="emailS"]').val();
+
+    alert(username);
+    alert(password);
+    alert(email);
 
     
     signUp(username,password,email).then(function(){
@@ -249,6 +253,8 @@ function handleSubmitSignupButtonPress(event){
         alert("end of success");
 
     }).catch(error => alert(error));
+    
+    //$(".submitSignupButton").on("click",handleSubmitSignupButtonPress);
 
 }
 
