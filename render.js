@@ -113,14 +113,14 @@ function renderLoginForm(){
                 <div class="field">
                     <label class="label">Username</label>
                     <div class="control">
-                    <input class="input" type="text" placeholder="your username here...">
+                    <input class="input" type="text" name="usernameL">
                     </div>
                 </div>
 
                 <div class="field">
                     <label class="label">Password</label>
                     <div class="control">
-                    <input class="input" type="text" placeholder="password...">
+                    <input class="input" type="text" name="passwordS">
                     </div>
                 </div>
                 
@@ -129,7 +129,7 @@ function renderLoginForm(){
                     <button class="button is-info">Login</button>
                     </div>
                     <div class="control">
-                    <button class="button is-info is-light">Cancel</button>
+                    <button class="button submitLoginButton is-info is-light" onclick="handleSubmitLoginButtonPress()">Cancel</button>
                     </div>
                 </div>
             </form>
@@ -158,9 +158,9 @@ function renderSignupForm(){
                 </div>
                 
                 <div class="field">
-                    <label class="label">Email</label>
+                    <label class="label">Bio</label>
                     <div class="control">
-                    <input class="input" type="email" name="emailS">
+                    <input class="input" type="text" name="bioS">
                     </div>
                 </div>
                 
@@ -225,40 +225,51 @@ function handlePlaceButtonPress(){
     $(document.getElementById("main1")).replaceWith(tmpObj);
 }
 
+//handles the push of the submit button on the sign up form
 function handleSubmitSignupButtonPress(event){
     
    
     let password = $('input[name="passwordS"]').val();
     let username = $('input[name="usernameS"]').val();
-    let email = $('input[name="emailS"]').val();
+    let bio = $('input[name="bioS"]').val();
 
-    alert(username);
-    alert(password);
-    alert(email);
+    signUp(username,password,bio).catch(error => alert(error));
 
-    
-    signUp(username,password,email).then(function(){
+    let html = 
+        `<div id="main1">
+            <br><br>
+            <h1 class="success">Account for ${username} successfully created! Check out the restaurants and bars!</h1>
+        </div>`;
 
-        alert("promise fulfilled");
+    let tmpObj=document.createElement("div"); // created an empty 'div'
+    tmpObj.innerHTML=html; // replaced with whatever html you had
 
-        let html = 
-            `<div id="main1">
-                <h1>Account for ${username} successfully created!</h1>
-            </div>`;
-
-        let tmpObj=document.createElement("div"); // created an empty 'div'
-        tmpObj.innerHTML=html; // replaced with whatever html you had
-
-        $(document.getElementById("main1")).replaceWith(tmpObj);
-        alert("end of success");
-
-    }).catch(error => alert(error));
-    
-    //$(".submitSignupButton").on("click",handleSubmitSignupButtonPress);
-
+    $(document.getElementById("main1")).replaceWith(tmpObj);
 }
 
-async function signUp(username,password,email){
+function handleSubmitLoginButtonPress(event){
+
+    
+    let password = $('input[name="passwordL"]').val();
+    let username = $('input[name="usernameL"]').val();
+   
+    login(username,password).then(result => localStorage.setItem('jwt',result)).catch(error => alert(error));
+    
+    let html = 
+        `<div id="main1">
+            <br><br>
+            <h1 class="success">${username} has successfully logged in! Check out the restaurants and bars!</h1>
+        </div>`;
+
+    let tmpObj=document.createElement("div"); // created an empty 'div'
+    tmpObj.innerHTML=html; // replaced with whatever html you had
+
+    $(document.getElementById("main1")).replaceWith(tmpObj);
+    alert("end of success");
+}
+
+//axios request to post to account.json
+async function signUp(username,password,bio){
 
     const result = await axios({
         method: 'post',
@@ -267,7 +278,7 @@ async function signUp(username,password,email){
             "name": username,
             "pass": password,
             "data":{
-                "email": email
+                "bio": bio
             }
         }
     });
@@ -275,12 +286,14 @@ async function signUp(username,password,email){
 }
 
 async function login(username,password){
+    
     const result = await axios({
         method: 'post',
         url: 'http://localhost:3000/account/login',
-        withCredentials: true,
-        name: username,
-        pass: password,
+        data:{
+            "name": username,
+            "pass": password,
+        }
     });
     return result.jwt;
 }

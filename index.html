@@ -67,9 +67,9 @@
                 </div>
                 
                 <div class="field">
-                    <label class="label">Email</label>
+                    <label class="label">Bio</label>
                     <div class="control">
-                    <input class="input" type="email" name="emailS">
+                    <input class="input" type="text" name="bioS">
                     </div>
                 </div>
                 
@@ -91,20 +91,20 @@
                     <div class="field">
                         <label class="label">Username</label>
                         <div class="control">
-                        <input class="input" type="text" placeholder="your username here...">
+                        <input class="input" type="text" name="usernameL">
                         </div>
                     </div>
     
                     <div class="field">
                         <label class="label">Password</label>
                         <div class="control">
-                        <input class="input" type="text" placeholder="password...">
+                        <input class="input" type="text" name="passwordL">
                         </div>
                     </div>
                     
                     <div class="field is-grouped">
                         <div class="control">
-                        <button class="button is-info">Login</button>
+                        <button class="button submitLoginButton is-info" onclick="handleSubmitLoginButtonPress()">Login</button>
                         </div>
                         <div class="control">
                         <button class="button is-info is-light">Cancel</button>
