@@ -1,7 +1,7 @@
 //turn the buttons on when the page loads
 $(".homeButton").on("click",handleHomeButtonPress);
 $(".restaurantsButton").on("click",handleRestaurantsButtonPress);
-$(".barsButton").on("click",handleBarsButtonPress);
+//$(".barsButton").on("click",handleBarsButtonPress);
 $(".aboutButton").on("click",handleAboutButtonPress);
 
 //switch to home tab
@@ -29,32 +29,46 @@ function handleHomeButtonPress(event){
 
 }
 
+
+
 //switch to restaurants tab
 function handleRestaurantsButtonPress(event){
+
+    let button = ``;
+    if(localStorage.getItem('jwt')){
+        button = `<button class="button is-success is-light postRestaurantButton" onClick="handlePostRestaurantButtonPress()">Create New Restaurant</button>`
+    }
+
     let replacingHTML = `
     <div id="main3">
-    <div id="main2">
-        <input value = "Search For Restaurants" size = 100></input>
-    </div>
-    <div id="main1" class="columns is-gapless has-text-centered is-vcentered justify-center">
-    <div class="column is-one-third">
-        <input type="image" onClick="handlePlaceButtonPress()" src="https://pbs.twimg.com/profile_images/980888442304425984/u0XKcSVA_400x400.jpg">
-        </input>
-    </div>
-    <div class="column">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRv_B1-_k28BRcdP21NCL5CnPWLVntURJBcvrQvUtPfBzm_3c8upQ&s">
-    </div>
-    <div class="column">
-        <img src="https://images.squarespace-cdn.com/content/57bf1474be65941ee0be7357/1472141575487-HSW0CNGJMSJZNM9HI53W/Sutton%27s+Logo.png?content-type=image%2Fpng">
-    </div>
-  </div>
-  </div>`;
+        <br>
+        <div>${button}</div>
+        <br>
+        <div id="main2">
+            <input value = "Search For Restaurants" size = 100></input>
+        </div>
+        <br>
+        <div id="main1" class="columns is-gapless has-text-centered is-vcentered justify-center">
+            <div class="column is-one-third">
+                <input type="image" onClick="handlePlaceButtonPress()" src="https://pbs.twimg.com/profile_images/980888442304425984/u0XKcSVA_400x400.jpg">
+                </input>
+            </div>
+        <div class="column">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRv_B1-_k28BRcdP21NCL5CnPWLVntURJBcvrQvUtPfBzm_3c8upQ&s">
+        </div>
+        <div class="column">
+            <img src="https://images.squarespace-cdn.com/content/57bf1474be65941ee0be7357/1472141575487-HSW0CNGJMSJZNM9HI53W/Sutton%27s+Logo.png?content-type=image%2Fpng">
+        </div>
+        </div>
+    </div>`;
 
-    let tmpObj=document.createElement("div"); // created an empty 'div'
-          tmpObj.innerHTML=replacingHTML; // replaced with whatever edit form html you had
+    
+
+        let tmpObj=document.createElement("div"); // created an empty 'div'
+        tmpObj.innerHTML=replacingHTML; // replaced with whatever edit form html you had
         
-          $(document.getElementById("main3").replaceWith(tmpObj));
-          $(".restaurantsButton").on("click",handleRestaurantsButtonPress);
+        $(document.getElementById("main3").replaceWith(tmpObj));
+        $(".restaurantsButton").on("click",handleRestaurantsButtonPress);
 
         //makes the tab change colors when clicked
         $("button").removeClass("is-info");
@@ -64,7 +78,7 @@ function handleRestaurantsButtonPress(event){
 
 }
 
-//switch to bars tab
+/*/switch to bars tab
 function handleBarsButtonPress(event){
   let replacingHTML = `
   <div id="main3">
@@ -92,10 +106,11 @@ function handleBarsButtonPress(event){
         $(".barsButton").addClass("is-light");
 
 }
+*/
 
 //switch to about tab
 function handleAboutButtonPress(event){
-  
+
   let replacingHTML = `<div id="main3">
   <br><br><br>
   <p class="about-text form-size">This website was made by Evan Falcinelli and Austin Joiner.<br><br>Designed with Bulma.</p>
@@ -126,20 +141,20 @@ function renderLoginForm(){
                 <div class="field">
                     <label class="label">Username</label>
                     <div class="control">
-                    <input class="input" type="text" placeholder="your username here...">
+                    <input class="input" type="text" name="usernameL">
                     </div>
                 </div>
 
                 <div class="field">
                     <label class="label">Password</label>
                     <div class="control">
-                    <input class="input" type="text" placeholder="password...">
+                    <input class="input" type="text" name="passwordL">
                     </div>
                 </div>
                 
                 <div class="field is-grouped">
                     <div class="control">
-                    <button class="button is-info">Login</button>
+                    <button class="button submitLoginButton is-info" onclick="handleSubmitLoginButtonPress()">Login</button>
                     </div>
                     <div class="control">
                     <button class="button is-info is-light">Cancel</button>
@@ -201,7 +216,7 @@ let coolRestaurant = {
 function renderPlacePage(place){
     let placeHTML = `
     <center>
-        <div id="main">
+        <div id="main3">
         <br><br>
         <div class="page is-centered form-size">
             <div class="page">
@@ -235,7 +250,7 @@ function handlePlaceButtonPress(){
     let tmpObj=document.createElement("div"); // created an empty 'div'
     tmpObj.innerHTML=renderPlacePage(coolRestaurant); // replaced with whatever edit form html you had
 
-    $(document.getElementById("main1")).replaceWith(tmpObj);
+    $(document.getElementById("main3")).replaceWith(tmpObj);
 }
 
 async function handleSubmitSignupButtonPress(event){
@@ -244,18 +259,35 @@ async function handleSubmitSignupButtonPress(event){
     let username = $('input[name="usernameS"]').val();
     let email = $('input[name="emailS"]').val();
 
-    let wow = await signUp(username,password,email);
-
-        alert("promise fulfilled");
+    signUp(username,password,email);
 
         let html = 
-            `<div id="main1">
-                <h1>Account for ${username} successfully created!</h1>
+            `<div id="main3">
+                <br><br><h1>Account for ${username} successfully created!</h1>
             </div>`;
         let tmpObj=document.createElement("div"); // created an empty 'div'
         tmpObj.innerHTML=html; // replaced with whatever html you had
-        $(document.getElementById("main1")).replaceWith(tmpObj);
-        alert("end of success");
+        $(document.getElementById("main3")).replaceWith(tmpObj);
+
+
+}
+
+async function handleSubmitLoginButtonPress(event){
+    
+    let password = $('input[name="passwordL"]').val();
+    let username = $('input[name="usernameL"]').val();
+
+    login(username,password).then((result) => localStorage.setItem('jwt',result.data.jwt)).catch(error => alert(error));
+
+
+        let html = 
+            `<div id="main3">
+                <br><br><h1>${username} successfully logged in!</h1>
+            </div>`;
+        let tmpObj=document.createElement("div"); // created an empty 'div'
+        tmpObj.innerHTML=html; // replaced with whatever html you had
+        $(document.getElementById("main3")).replaceWith(tmpObj);
+        
 
 }
 
@@ -279,11 +311,13 @@ async function login(username,password){
     const result = await axios({
         method: 'post',
         url: 'http://localhost:3000/account/login',
-        withCredentials: true,
-        name: username,
-        pass: password,
+        data:{
+            name: username,
+            pass: password
+        }
+        
     });
-    return result.jwt;
+    return result;
 }
 
 async function spellCheck(body){
