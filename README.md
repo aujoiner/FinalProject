@@ -1,6 +1,9 @@
 # FinalProject
 Final project for COMP426.
 
+# 12/10/2019
+Logged in users can post restaurants to both the public and private servers. The "add to favorites button" doesn't do anything yet.
+
 # 12/9/2019 6:26pm
 Signup and Login forms are both fully functional. Logging in stores the jwt in localStorage and can be retrieved at localStorage.getItem('jwt'). Signing up does not automatically log you in. There is a green Create New Restaurant button under the Restaurants tab if a user is logged in. There is no logout method so once you login you cannot log out unless you remove the token from localStorage (resetting browser-sync does not log you out).
 
