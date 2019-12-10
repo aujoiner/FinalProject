@@ -29,14 +29,12 @@ function handleHomeButtonPress(event){
 
 }
 
-
-
 //switch to restaurants tab
 function handleRestaurantsButtonPress(event){
 
     let button = ``;
     if(localStorage.getItem('jwt')){
-        button = `<button class="button is-success is-light postRestaurantButton" onClick="handlePostRestaurantButtonPress()">Create New Restaurant</button>`
+        button = `<button id="createRestaurantButton" class="button is-success is-light createRestaurantButton" onClick="handleCreateRestaurantButtonPress()">Create New Restaurant</button>`
     }
 
     let replacingHTML = `
@@ -76,6 +74,118 @@ function handleRestaurantsButtonPress(event){
         $(".restaurantsButton").addClass("is-info");
         $(".restaurantsButton").addClass("is-light");
 
+}
+
+function handleCreateRestaurantButtonPress(event){
+
+    let replacingHTML = `<div id="main3" class="form-size"><br>
+    <h1 class="form-title">Create a Restaurant!</h1>
+    <br>
+    <form class="restaurant-form">
+        
+        <div class="field">
+            <label class="label">Name of Restaurant</label>
+            <div class="control">
+            <input class="input" type="text" name="nameR">
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label">Address</label>
+            <div class="control">
+            <input class="input" type="text" name="addressR">
+            </div>
+        </div>
+        
+        <div class="field">
+            <label class="label">Description</label>
+            <div class="control">
+            <input class="input" type="text" name="descriptionR">
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label">Image URL</label>
+            <div class="control">
+            <input class="input" type="text" name="imageR">
+            </div>
+        </div>
+        
+        <div class="field is-grouped">
+            <div class="control">
+            <button class="button submitCreateRestaurantButton is-info" onclick="handleSubmitCreateRestaurantButtonPress()">Post</button>
+            </div>
+            <div class="control">
+            <button class="button is-info is-light">Cancel</button>
+            </div>
+        </div>
+    </form><br><br>
+    </div>`;
+
+    let tmpObj=document.createElement("div"); // created an empty 'div'
+    tmpObj.innerHTML=replacingHTML; // replaced with whatever edit form html you had
+
+    $(document.getElementById("main3")).replaceWith(tmpObj);
+}
+
+async function handleSubmitCreateRestaurantButtonPress(event){
+    
+    let name = $('input[name="nameR"]').val();
+    let address = $('input[name="addressR"]').val();
+    let description = $('input[name="descriptionR"]').val();
+    let imageURL = $('input[name="imageR"]').val();
+
+    let restaurant = {
+        name: name,
+        address: address,
+        description: description,
+        imageURL: imageURL
+    };
+
+    postRestaurantPrivate(name,address,description,imageURL).catch(error => alert(error));
+    postRestaurantPublic(name,address,description,imageURL).catch(error => alert(error));
+    $(document.getElementById("main3")).replaceWith(renderPlacePage(restaurant))
+    
+
+}
+
+async function postRestaurantPrivate(name,address,description,imageURL){
+
+    const result = await axios({
+        method: 'post',
+        url: `http://localhost:3000/private/restaurants/${name}`,
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem('jwt')
+        },
+        data: {
+            "data": {
+                "name": name,
+                "address": address,
+                "description": description,
+                "imageURL": imageURL
+            }
+        }
+    });
+
+    return result;
+}
+
+async function postRestaurantPublic(name,address,description,imageURL){
+
+    const result = await axios({
+        method: 'post',
+        url: `http://localhost:3000/public/restaurants/${name}`,
+        data: {
+            "data": {
+                "name": name,
+                "address": address,
+                "description": description,
+                "imageURL": imageURL
+            }
+        }
+    });
+
+    return result;
 }
 
 /*/switch to bars tab
@@ -209,18 +319,25 @@ let coolRestaurant = {
     name: "TOP OF THE HILL",
     address: "100 Franklin Street, Chapel Hill, NC 27516",
     description: "American cuisine with great views of Franklin Street. Food is way too expensive for what it is.",
-    image: "https://pbs.twimg.com/profile_images/980888442304425984/u0XKcSVA_400x400.jpg"
+    imageURL: "https://pbs.twimg.com/profile_images/980888442304425984/u0XKcSVA_400x400.jpg"
 }
 
 //renders the individual page for a clicked on restaurant
 function renderPlacePage(place){
+
+    let addButton = ``;
+    if(localStorage.getItem('jwt')){
+        addButton =`<button id="addB" class="button addButton is-info is-light" onclick="handleAddButtonPress()">Add to your favorites</button>`;
+    }
+    
+
     let placeHTML = `
-    <center>
-        <div id="main3">
+    
+        <div id="main3"><center>
         <br><br>
         <div class="page is-centered form-size">
             <div class="page">
-                <img class="page" src="${place.image}"></img>
+                <img class="page" src="${place.imageURL}"></img>
             </div>
             <div class="page">
                 <h1 class="name">
@@ -230,7 +347,8 @@ function renderPlacePage(place){
                     ${place.address}
                 </h3>
                 <br>
-                <br>
+                ${addButton}
+                <br><br>
                 <p class="description">
                     ${place.description}
                 </p>
@@ -238,10 +356,15 @@ function renderPlacePage(place){
         </div>
         <br>
         <br>
-        </div>
-    </center>`;
+        </div></center>
+    `;
 
     return placeHTML;
+}
+
+function handleAddButtonPress(event){
+
+    $("#addB").replaceWith(`<strong>Added!</strong`);
 }
 
 //handles button push for a restaurant/bar image
