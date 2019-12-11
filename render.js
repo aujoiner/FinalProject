@@ -12,7 +12,6 @@ function handleHomeButtonPress(event){
           <br>
           ${renderSignupForm()}
           ${renderLoginForm()}
-
         </section>`;
 
         let tmpObj=document.createElement("div"); // created an empty 'div'
@@ -30,7 +29,7 @@ function handleHomeButtonPress(event){
 }
 
 //switch to restaurants tab
-function handleRestaurantsButtonPress(event){
+async function handleRestaurantsButtonPress(event){
 
     let button = ``;
     if(localStorage.getItem('jwt')){
@@ -43,7 +42,8 @@ function handleRestaurantsButtonPress(event){
         <div>${button}</div>
         <br>
         <div id="main2">
-            <input value = "Search For Restaurants" size = 100></input>
+            <input id="searchfor" value = "Search For Restaurants" size = 100></input>
+            <button id="search">Search</button>
         </div>
         <br>
         <div id="main1" class="columns is-gapless has-text-centered is-vcentered justify-center">
@@ -69,6 +69,11 @@ function handleRestaurantsButtonPress(event){
         $(".restaurantsButton").on("click",handleRestaurantsButtonPress);
 
         //makes the tab change colors when clicked
+        document.getElementById("search").onclick = async function (){
+            let input = document.getElementById("searchfor").value;
+            let promise = await getRestaurantPublic(input);
+            alert(promise['name']);
+        }
         $("button").removeClass("is-info");
         $("button").removeClass("is-light");
         $(".restaurantsButton").addClass("is-info");
@@ -89,7 +94,6 @@ function handleCreateRestaurantButtonPress(event){
             <input class="input" type="text" name="nameR">
             </div>
         </div>
-
         <div class="field">
             <label class="label">Address</label>
             <div class="control">
@@ -103,7 +107,6 @@ function handleCreateRestaurantButtonPress(event){
             <input class="input" type="text" name="descriptionR">
             </div>
         </div>
-
         <div class="field">
             <label class="label">Image URL</label>
             <div class="control">
@@ -188,6 +191,16 @@ async function postRestaurantPublic(name,address,description,imageURL){
     return result;
 }
 
+async function getRestaurantPublic(name){
+
+    const result = await axios({
+        method: 'get',
+        url: `http://localhost:3000/public/restaurants/` + name,
+    });
+
+    return result;
+}
+
 /*/switch to bars tab
 function handleBarsButtonPress(event){
   let replacingHTML = `
@@ -201,20 +214,16 @@ function handleBarsButtonPress(event){
   </div>
 </div>
 </div>`;
-
   let tmpObj=document.createElement("div"); // created an empty 'div'
         tmpObj.innerHTML=replacingHTML; // replaced with whatever edit form html you had
         //$('#main2').remove();
-
         $(document.getElementById("main3").replaceWith(tmpObj));
         $(".barsButton").on("click",handleBarsButtonPress);
-
         //makes the tab change colors when clicked
         $("button").removeClass("is-info");
         $("button").removeClass("is-light");
         $(".barsButton").addClass("is-info");
         $(".barsButton").addClass("is-light");
-
 }
 */
 
@@ -254,7 +263,6 @@ function renderLoginForm(){
                     <input class="input" type="text" name="usernameL">
                     </div>
                 </div>
-
                 <div class="field">
                     <label class="label">Password</label>
                     <div class="control">
@@ -287,7 +295,6 @@ function renderSignupForm(){
                     <input class="input" type="text" name="usernameS">
                     </div>
                 </div>
-
                 <div class="field">
                     <label class="label">Password</label>
                     <div class="control">
@@ -381,8 +388,12 @@ async function handleSubmitSignupButtonPress(event){
     let password = $('input[name="passwordS"]').val();
     let username = $('input[name="usernameS"]').val();
     let email = $('input[name="emailS"]').val();
+    //localStorage.removeItem("jwt");
 
-    signUp(username,password,email);
+    let emailResponse = await emailCheck(email);
+
+    if(emailResponse.format_valid){
+        await signUp(username,password,email);
 
         let html = 
             `<div id="main3">
@@ -391,6 +402,16 @@ async function handleSubmitSignupButtonPress(event){
         let tmpObj=document.createElement("div"); // created an empty 'div'
         tmpObj.innerHTML=html; // replaced with whatever html you had
         $(document.getElementById("main3")).replaceWith(tmpObj);
+    } else {
+        let html = 
+            `<div id="main3">
+                <br><br><h1>Account for ${username} not created!  Email not valid.</h1>
+            </div>`;
+        let tmpObj=document.createElement("div"); // created an empty 'div'
+        tmpObj.innerHTML=html; // replaced with whatever html you had
+        $(document.getElementById("main3")).replaceWith(tmpObj);
+
+    }
 
 
 }
@@ -438,7 +459,6 @@ async function login(username,password){
             name: username,
             pass: password
         }
-        
     });
     return result;
 }
@@ -451,6 +471,18 @@ async function spellCheck(body){
           text: body
         },
         headers: {'Ocp-Apim-Subscription-Key' : '3bf5815f961043f89487917436ce56ae'}
+      });
+      return result;
+    
+}
+
+async function emailCheck(email){
+    const result = await axios({
+        method: 'post',
+        url: `http://apilayer.net/api/check?access_key=c4753dca9eeea4157353c4983b5c125a`,
+        params: {
+            email : email
+        }
       });
       return result;
     
