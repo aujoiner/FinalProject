@@ -28,6 +28,72 @@ function handleHomeButtonPress(event){
 
 }
 
+function handleHomeButtonPress(event){
+  
+    
+    let code = `${renderSignupForm()} ${renderLoginForm()}`;
+    if(localStorage.getItem('jwt')){
+        code =`${renderPersonalPage(localStorage.getItem('jwt'))}`;
+    }
+    
+  let replacingHTML = `<section id="main3" class="form is-centered form-size">
+          <br>
+          <br>
+          ${code}
+
+        </section>`;
+
+        let tmpObj=document.createElement("div"); // created an empty 'div'
+        tmpObj.innerHTML=replacingHTML; // replaced with whatever edit form html you had
+
+        $(document.getElementById("main3").replaceWith(tmpObj));
+        $(".homeButton").on("click",handleHomeButtonPress);
+
+        //this sets the tab color so you know you're on that page
+        $("button.tab").removeClass("is-info");
+        $("button.tab").removeClass("is-light");
+        $(".homeButton").addClass("is-info");
+        $(".homeButton").addClass("is-light");
+
+}
+
+async function renderPersonalPage(jwt){
+
+    let html =`<div id="main3">You haven't favorited any restaurants yet!</div>`
+
+    getUserFavorites(jwt).then(result =>
+        alert(result.data.favorites)).catch(error => alert(error));
+}
+
+async function getUserFavorites(jwt){
+    const result = await axios({
+            method: 'get',
+            url: `http://localhost:3000/user/favorites`,
+            headers: {
+                Authorization: `Bearer ${jwt}`
+            }
+    });
+
+    return result;
+}
+
+async function addUserFavorites(name,jwt){
+    const result = await axios({
+        method: 'post',
+        type: 'merge',
+        url: `http://localhost:3000/user/favorites`,
+        headers: {
+            Authorization: `Bearer ${jwt}`
+        },
+        data: {
+            "data": {
+                "name": name,
+            }
+        }
+    });
+    return result;
+}
+
 //switch to restaurants tab
 async function handleRestaurantsButtonPress(event){
 
