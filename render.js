@@ -434,11 +434,36 @@ async function handleSubmitSignupButtonPress(event){
     let username = $('input[name="usernameS"]').val();
     let email = $('input[name="emailS"]').val();
     //localStorage.removeItem("jwt");
+    let emailResponse;
+    let data;
+    emailResponse = emailCheck(email).then(function(defs){
+        data = defs.data.format_valid;
+        if(defs.data.format_valid){
+            signUp(username,password,email);
+            let html = 
+                `<div id="main3">
+                    <br><br><h1>Account for ${username} successfully created!</h1>
+                </div>`;
+            let tmpObj=document.createElement("div"); // created an empty 'div'
+            tmpObj.innerHTML=html; // replaced with whatever html you had
+            $(document.getElementById("main3")).replaceWith(tmpObj);
+        } else {
+            let html = 
+                `<div id="main3">
+                    <br><br><h1>Account for ${username} not created!  Email not valid.</h1>
+            </div>`;
+            let tmpObj=document.createElement("div"); // created an empty 'div'
+            tmpObj.innerHTML=html; // replaced with whatever html you had
+            $(document.getElementById("main3")).replaceWith(tmpObj);
+        }
+    });
 
-    let emailResponse = await emailCheck(email);
+    
 
-    if(emailResponse.format_valid){
-        await signUp(username,password,email);
+    //alert(emailResponse['data']['format_valid']);
+    //console.log(emailResponse.data.format_valid);
+    
+        signUp(username,password,email);
 
         let html = 
             `<div id="main3">
@@ -447,16 +472,16 @@ async function handleSubmitSignupButtonPress(event){
         let tmpObj=document.createElement("div"); // created an empty 'div'
         tmpObj.innerHTML=html; // replaced with whatever html you had
         $(document.getElementById("main3")).replaceWith(tmpObj);
-    } else {
-        let html = 
-            `<div id="main3">
-                <br><br><h1>Account for ${username} not created!  Email not valid.</h1>
-            </div>`;
-        let tmpObj=document.createElement("div"); // created an empty 'div'
-        tmpObj.innerHTML=html; // replaced with whatever html you had
-        $(document.getElementById("main3")).replaceWith(tmpObj);
+    //} else {
+        // let html = 
+        //     `<div id="main3">
+        //         <br><br><h1>Account for ${username} not created!  Email not valid.</h1>
+        //     </div>`;
+        // let tmpObj=document.createElement("div"); // created an empty 'div'
+        // tmpObj.innerHTML=html; // replaced with whatever html you had
+        // $(document.getElementById("main3")).replaceWith(tmpObj);
 
-    }
+    //}
 
 
 }
