@@ -65,3 +65,9 @@ label{
 strong{
     color: blue;
 }
+h1.favs{
+    font-size: 75px;
+}
+h2.list{
+    font-size: 25px;
+}

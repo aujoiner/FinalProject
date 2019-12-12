@@ -1,7 +1,6 @@
 //turn the buttons on when the page loads
 $(".homeButton").on("click",handleHomeButtonPress);
 $(".restaurantsButton").on("click",handleRestaurantsButtonPress);
-//$(".barsButton").on("click",handleBarsButtonPress);
 $(".aboutButton").on("click",handleAboutButtonPress);
 
 //switch to home tab
@@ -59,10 +58,15 @@ function handleHomeButtonPress(event){
 
 async function renderPersonalPage(jwt){
 
-    let html =`<div id="main3">You haven't favorited any restaurants yet!</div>`
-
     getUserFavorites(jwt).then(result =>
-        alert(result.data.favorites)).catch(error => alert(error));
+        $(document.getElementById("main3")).replaceWith(
+            `<div id="main3">
+                <br><br>
+                <h1 class="favs">Your Favorite Restaurants</h1><br>
+                <h2 class="list">${result.data.result}</h2>
+            </div>`
+        ));
+
 }
 
 async function getUserFavorites(jwt){
@@ -73,22 +77,19 @@ async function getUserFavorites(jwt){
                 Authorization: `Bearer ${jwt}`
             }
     });
-
     return result;
 }
 
 async function addUserFavorites(name,jwt){
     const result = await axios({
         method: 'post',
-        type: 'merge',
         url: `http://localhost:3000/user/favorites`,
         headers: {
             Authorization: `Bearer ${jwt}`
         },
         data: {
-            "data": {
-                "name": name,
-            }
+            "data": [name],
+            "type": 'merge'
         }
     });
     return result;
@@ -267,32 +268,6 @@ async function getRestaurantPublic(name){
     return result;
 }
 
-/*/switch to bars tab
-function handleBarsButtonPress(event){
-  let replacingHTML = `
-  <div id="main3">
-  <div id="main2">
-        <input value = "Search For Bars" size = 100></input>
-</div>
-  <div id="main1" class="columns is-gapless has-text-centered is-vcentered justify-center">
-  <div class="column is-one-third">
-      <img src="https://pbs.twimg.com/profile_images/980888442304425984/u0XKcSVA_400x400.jpg">
-  </div>
-</div>
-</div>`;
-  let tmpObj=document.createElement("div"); // created an empty 'div'
-        tmpObj.innerHTML=replacingHTML; // replaced with whatever edit form html you had
-        //$('#main2').remove();
-        $(document.getElementById("main3").replaceWith(tmpObj));
-        $(".barsButton").on("click",handleBarsButtonPress);
-        //makes the tab change colors when clicked
-        $("button").removeClass("is-info");
-        $("button").removeClass("is-light");
-        $(".barsButton").addClass("is-info");
-        $(".barsButton").addClass("is-light");
-}
-*/
-
 //switch to about tab
 function handleAboutButtonPress(event){
 
@@ -402,11 +377,9 @@ function renderPlacePage(place){
     if(localStorage.getItem('jwt')){
         addButton =`<button id="addB" class="button addButton is-info is-light" onclick="handleAddButtonPress()">Add to your favorites</button>`;
     }
-    
 
     let placeHTML = `
-    
-        <div id="main3"><center>
+        <div id="main3" value="${place.name}"><center>
         <br><br>
         <div class="page is-centered form-size">
             <div class="page">
@@ -438,6 +411,10 @@ function renderPlacePage(place){
 function handleAddButtonPress(event){
 
     $("#addB").replaceWith(`<strong>Added!</strong`);
+
+    let name = $(document.getElementById("main3")).attr('value');
+    
+    addUserFavorites(name,localStorage.getItem('jwt'))
 }
 
 //handles button push for a restaurant/bar image
