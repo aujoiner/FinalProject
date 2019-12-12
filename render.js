@@ -5,31 +5,7 @@ $(".aboutButton").on("click",handleAboutButtonPress);
 
 //switch to home tab
 function handleHomeButtonPress(event){
-  
-  let replacingHTML = `<section id="main3" class="form is-centered form-size">
-          <br>
-          <br>
-          ${renderSignupForm()}
-          ${renderLoginForm()}
-        </section>`;
-
-        let tmpObj=document.createElement("div"); // created an empty 'div'
-        tmpObj.innerHTML=replacingHTML; // replaced with whatever edit form html you had
-
-        $(document.getElementById("main3").replaceWith(tmpObj));
-        $(".homeButton").on("click",handleHomeButtonPress);
-
-        //this sets the tab color so you know you're on that page
-        $("button.tab").removeClass("is-info");
-        $("button.tab").removeClass("is-light");
-        $(".homeButton").addClass("is-info");
-        $(".homeButton").addClass("is-light");
-
-}
-
-function handleHomeButtonPress(event){
-  
-    
+   
     let code = `${renderSignupForm()} ${renderLoginForm()}`;
     if(localStorage.getItem('jwt')){
         code =`${renderPersonalPage(localStorage.getItem('jwt'))}`;
@@ -63,10 +39,36 @@ async function renderPersonalPage(jwt){
             `<div id="main3">
                 <br><br>
                 <h1 class="favs">Your Favorite Restaurants</h1><br>
+                <button class="button is-danger is-light deleteButton" onclick="handleDeleteButtonPress()">Delete All</button>
+                <br><br>
                 <h2 class="list">${result.data.result}</h2>
             </div>`
         ));
+}
 
+async function handleDeleteButtonPress(event){
+    let jwt = localStorage.getItem('jwt');
+
+    deleteUserFavorites(jwt).then(result =>
+        $(document.getElementById("main3")).replaceWith(
+            `<div id="main3">
+                <br><br>
+                <h1 class="favs">Your Favorite Restaurants</h1><br>
+                <button class="button is-danger is-light deleteButton" onclick="handleDeleteButtonPress()">Delete All</button>
+            </div>`
+    ));
+
+}
+
+async function deleteUserFavorites(jwt){
+    const result = await axios({
+        method: 'delete',
+        url: `http://localhost:3000/user/favorites`,
+        headers: {
+            Authorization: `Bearer ${jwt}`
+        }
+    });
+    return result;
 }
 
 async function getUserFavorites(jwt){
@@ -97,7 +99,7 @@ async function addUserFavorites(name,jwt){
 
 //switch to restaurants tab
 async function handleRestaurantsButtonPress(event){
-
+    localStorage.removeItem('jwt')
     let button = ``;
     if(localStorage.getItem('jwt')){
         button = `<button id="createRestaurantButton" class="button is-success is-light createRestaurantButton" onClick="handleCreateRestaurantButtonPress()">Create New Restaurant</button>`
