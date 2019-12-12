@@ -99,7 +99,7 @@ async function addUserFavorites(name,jwt){
 
 //switch to restaurants tab
 async function handleRestaurantsButtonPress(event){
-    localStorage.removeItem('jwt')
+    
     let button = ``;
     if(localStorage.getItem('jwt')){
         button = `<button id="createRestaurantButton" class="button is-success is-light createRestaurantButton" onClick="handleCreateRestaurantButtonPress()">Create New Restaurant</button>`
