@@ -1,17 +1,17 @@
 # FinalProject
 Final project for COMP426.
 
-# 12/10/2019
-Logged in users can post restaurants to both the public and private servers. The "add to favorites button" doesn't do anything yet.
+# Requirements
 
-# 12/9/2019 6:26pm
-Signup and Login forms are both fully functional. Logging in stores the jwt in localStorage and can be retrieved at localStorage.getItem('jwt'). Signing up does not automatically log you in. There is a green Create New Restaurant button under the Restaurants tab if a user is logged in. There is no logout method so once you login you cannot log out unless you remove the token from localStorage (resetting browser-sync does not log you out).
+An HTML input field where, as a user types, autocomplete suggestions are displayed. This widget must implement debouncing, and must be a useful part of the application. We have a search bar.
 
-# General
-The "main1" ID: I have an id called "main1" which I have been using to grab and replace web content when the tabs and other buttons are pushed. It should replace everything under the hero.
+Your app must have a signup process that allows users to create accounts and log in using username/email and password. The app should store additional information about each user besides username and password (this is what the backend stores by default in account.json). Our home page has a sign-in and login form. Signing up also stores the users email in the account.json file. 
 
-Home: When the page loads you will see a hero header for Chapel Hill Restaurants and Bars. There will be four buttons in the footer of the hero that correspond to Home, Restaurants, Bars, and About. You will automatically be on the home tab, which displays a sign up form and a login form for the user to fill out. The sign up form is a work in progress (semi-functional) and the login form has not been touched.
+Your app must create, read, update, and delete at least one resource from each data store provided (public, private, and user).
+Public: Create (posts restaurant data)
+Private: Create (posts restaurant data)
+User: Read, Update, Delete (reads user data, updates user list of favorites, deletes list of user favorites)
 
-Restaurants: This tab will change the content below the hero to be a list of images of different restaurants in Chapel Hill. The images will be clickable (click on the TOPO image to see what an individual page for a restaurant will look like). If a user is logged in, they will see a Create Restaurant button.
+Your app must access a dynamic data source (your backend) to generate content and not solely rely on static content (e.g. hard-coded HTML pages). Our user store does this when generating the list of favorites for the user.
 
-About: I just wanted a third tab so it's a simple about page.
+Your app must consume a 3rd party API. You are free to choose any publicly available API you wish. We used MailboxLayer as an email validator for the sign-up form.
